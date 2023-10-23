@@ -1,0 +1,75 @@
+Method 1
+
+1. 
+https://medium.com/@sumuduliyan/building-and-deploying-a-sample-application-on-a-kubernetes-cluster-3f6aeb7edc98
+
+2. Ensure file extensions are turned on
+
+https://www.techradar.com/how-to/computing/apple/how-to-show-or-hide-file-extensions-in-mac-os-x-1295830
+
+Note: First pull nginx image and then build another image
+
+3. Setup Kubenetes on GCP using the below link or using Method 2 setup K8 cluster on local machine
+
+https://medium.com/@sumudu_liyan/how-to-set-up-a-simple-kubernetes-cluster-on-google-cloud-platform-f7839323579f
+
+4. 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Building and deploying a sample HTML application with an Nginx server on a local Docker environment and a Kubernetes cluster involves several steps. Here's a step-by-step guide to help you achieve this:
+
+Prerequisites:
+
+- Docker installed and running on your local machine.
+- Kubernetes cluster set up on your local machine. You can use tools like Minikube or kind for this.
+
+- kubectl command-line tool installed and configured to work with your local Kubernetes cluster.
+
+- kewl or minikube utility to create config file
+
+Step 1: Create a Sample HTML Application (as attached, index.html)
+
+Step 2: Create a Docker Image for Nginx:
+
+Create a Dockerfile in the same directory as your HTML file to build a Docker image with Nginx (as attached):
+
+docker build -t my-nginx-html-app .
+
+Once can check this image in docker hub
+
+Step 3: Run the Docker Container:
+
+Run the Docker container based on the image you just built:
+
+docker run -d -p 8080:80 my-nginx-html-app
+
+This command starts the Nginx container in detached mode and maps port 8080 on your host to port 80 in the container.
+
+You can access your HTML application by opening a web browser and navigating to http://localhost:8080.
+
+
+Step 4: Deploy to Kubernetes:
+
+Create a Kubernetes deployment YAML file (e.g., nginx-deployment.yaml) to deploy your Nginx container:
+
+Deploy the application to your Kubernetes cluster:
+
+kubectl apply -f nginx-deployment.yaml
+
+Step 5: Expose the Deployment:
+
+Create a Kubernetes service YAML file (e.g., nginx-service.yaml) to expose your Nginx deployment:
+
+kubectl apply -f nginx-service.yaml
+
+Step 6: Access the Application in Kubernetes:
+
+To access your HTML application running in the Kubernetes cluster, you can find the NodePort assigned to the service and use it in your browser:
+
+kubectl get svc nginx-service
+
+This command will display the NodePort that you can use to access your application. For example, if the NodePort is 32000, you can access the application at http://localhost:32000.
+
+That's it! You've successfully built and deployed a sample HTML application with an Nginx server in both a local Docker environment and a Kubernetes cluster.
